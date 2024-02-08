@@ -68,12 +68,21 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Order not found
-    patch:
+  /order/{orderId}:
+    put:
       tags:
         - order
       summary: Update an order's status
       description: Update an order's status
       operationId: updateOrderStatus
+      parameters:
+        - name: orderId
+          in: path
+          description: ID of order to return
+          required: true
+          schema:
+            type: integer
+            format: int64
       requestBody:
         description: Update an existent order's status
         content:
@@ -81,10 +90,6 @@ paths:
             schema:
               type: object
               properties:
-                orderId:
-                  type: integer
-                  format: int64
-                  example: 10
                 status:
                   type: string
                   example: "inProgress"
@@ -145,7 +150,6 @@ paths:
           description: Order not found
         '422':
           description: Validation exception
-  /order/{orderId}:
     get:
       tags:
         - order
@@ -175,41 +179,6 @@ paths:
         '404':
           description: Order not found
   /quest:
-    put:
-      tags:
-        - quest
-      summary: Update an existing quest
-      description: Update an existing quest by Id
-      operationId: updateQuest
-      requestBody:
-        description: Update an existent quest
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Quest'
-          application/xml:
-            schema:
-              $ref: '#/components/schemas/Quest'
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: '#/components/schemas/Quest'
-        required: true
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Quest'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/Quest'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Quest not found
-        '422':
-          description: Validation exception
     post:
       tags:
         - quest
@@ -244,6 +213,49 @@ paths:
         '422':
           description: Validation exception
   /quest/{questId}:
+    put:
+      tags:
+        - quest
+      summary: Update an existing quest
+      description: Update an existing quest by Id
+      operationId: updateQuest
+      parameters:
+        - name: questId
+          in: path
+          description: Quest id to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Update an existent quest
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Quest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Quest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Quest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quest'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Quest'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Quest not found
+        '422':
+          description: Validation exception
     get:
       tags:
         - quest
