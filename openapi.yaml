@@ -363,6 +363,37 @@ paths:
           description: Invalid username supplied
         '404':
           description: User not found
+  /courier/{username}/{questId}:
+    post:
+      tags:
+       - courier
+      summary: Starts the selected quest for the given courier
+      description: ''
+      operationId: startQuest
+      parameters:
+        - name: username
+          in: path
+          description: 'The name of the user that will take the quest'
+          required: true
+          schema:
+            type: string
+        - name: questId
+          in: path
+          description: 'The id of the quest to start'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestCourier'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/QuestCourier'
 components:
   schemas:
     Quest:
