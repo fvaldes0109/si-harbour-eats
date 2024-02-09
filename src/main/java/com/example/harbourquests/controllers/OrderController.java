@@ -1,12 +1,14 @@
 package com.example.harbourquests.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.example.harbourquests.data.entities.Order;
+import com.example.harbourquests.data.entities.Quest;
 import com.example.harbourquests.data.entities.QuestCourier;
 import com.example.harbourquests.data.entities.User;
 import com.example.harbourquests.data.repositories.OrderRepository;
@@ -14,6 +16,8 @@ import com.example.harbourquests.data.repositories.QuestCourierRepository;
 import com.example.harbourquests.data.repositories.UserRepository;
 import com.example.harbourquests.enums.OrderStatus;
 import com.example.harbourquests.enums.QuestCourierStatus;
+
+import jakarta.persistence.criteria.Join;
 
 @RestController
 public class OrderController {
@@ -25,9 +29,29 @@ public class OrderController {
     @Autowired
     private QuestCourierRepository questCourierRepository;
 
-    public Iterable<Order> getOrders(OrderStatus status) {
+    public Iterable<Order> getOrders(OrderStatus status, String username, Long questId) {
         
-        return orderRepository.findAll();
+        Specification<Order> spec = Specification.where(null);
+    
+        if (status != null) {
+            spec = spec.and((root, query, cb) -> cb.equal(root.get("status"), status));
+        }
+        if (username != null) {
+            spec = spec.and((root, query, cb) -> {
+                Join<Order, QuestCourier> questCourierJoin = root.join("questCourier");
+                Join<QuestCourier, User> userJoin = questCourierJoin.join("user");
+                return cb.equal(userJoin.get("username"), username);
+            });
+        }
+        if (questId != null) {
+            spec = spec.and((root, query, cb) -> {
+                Join<Order, QuestCourier> questCourierJoin = root.join("questCourier");
+                Join<QuestCourier, Quest> questJoin = questCourierJoin.join("quest");
+                return cb.equal(questJoin.get("id"), questId);
+            });
+        }
+
+        return orderRepository.findAll(spec);
     }
 
     public @ResponseBody Order getOrderById(Long orderId) {

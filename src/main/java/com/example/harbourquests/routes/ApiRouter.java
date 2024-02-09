@@ -32,10 +32,13 @@ public class ApiRouter {
         this.courierController = courierController;
     }
     
-    // TODO: Add query parameters filters
     @GetMapping("order")
-    public Iterable<Order> getOrders(@RequestParam(required = false) OrderStatus status) {
-        return orderController.getOrders(status);
+    public Iterable<Order> getOrders(
+        @RequestParam(required = false) OrderStatus status,
+        @RequestParam(required = false) String username,
+        @RequestParam(required = false) Long questId
+        ) {
+        return orderController.getOrders(status, username, questId);
     }
     
     @GetMapping("order/{orderId}")
