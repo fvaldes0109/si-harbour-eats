@@ -28,12 +28,12 @@ public class ApiRouter {
         this.orderController = orderController;
     }
     
+    // TODO: Add query parameters filters
     @GetMapping("order")
     public Iterable<Order> getOrders(@RequestParam(required = false) OrderStatus status) {
         return orderController.getOrders(status);
     }
     
-
     @GetMapping("order/{orderId}")
     public Order getOrderById(@PathVariable Long orderId) {
         return orderController.getOrderById(orderId);   
@@ -44,6 +44,7 @@ public class ApiRouter {
         return orderController.createOrder(entity);
     }
 
+    // TODO: If there is an active quest and the order was completed, add 1 to the QuestCourier
     @PutMapping("order/{id}")
     public Order updateOrderStatus(@PathVariable Long id, @RequestBody Order entity) {
         return orderController.updateOrderStatus(id, entity.getStatus());
