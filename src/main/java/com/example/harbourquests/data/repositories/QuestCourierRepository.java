@@ -12,6 +12,9 @@ public interface QuestCourierRepository extends CrudRepository<QuestCourier, Lon
     @Query("SELECT COUNT(*) FROM QuestCourier qc WHERE qc.user.username = ?1 AND qc.status = 2")
     Long numberOfActiveQuest(String username);
 
+    @Query("SELECT qc FROM QuestCourier qc WHERE qc.user.username = ?1 AND qc.status = ?2")
+    Iterable<QuestCourier> findByUserAndStatus(String username, QuestCourierStatus status);
+
     @Query("SELECT qc FROM QuestCourier qc WHERE qc.user.username = ?1 AND qc.status <> ?2")
     Iterable<QuestCourier> findByUserAndNotStatus(String username, QuestCourierStatus status);
 }

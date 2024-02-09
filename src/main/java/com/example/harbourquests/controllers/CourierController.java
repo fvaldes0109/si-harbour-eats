@@ -38,7 +38,17 @@ public class CourierController {
     }
 
     public Iterable<QuestCourier> getHistory(String username) {
-        
         return questCourierRepository.findByUserAndNotStatus(username, QuestCourierStatus.completed);
+    }
+
+    public QuestCourier getActiveQuest(String username) {
+        
+        Iterable<QuestCourier> inProgress = questCourierRepository.findByUserAndStatus(username, QuestCourierStatus.inProgress);
+
+        if (inProgress.iterator().hasNext()) {
+            return inProgress.iterator().next();
+        }
+
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No active quest found");
     }
 }
