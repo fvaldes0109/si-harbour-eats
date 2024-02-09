@@ -2,10 +2,12 @@ package com.example.harbourquests.routes;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.harbourquests.controllers.CourierController;
 import com.example.harbourquests.controllers.OrderController;
 import com.example.harbourquests.controllers.QuestController;
 import com.example.harbourquests.data.entities.Order;
 import com.example.harbourquests.data.entities.Quest;
+import com.example.harbourquests.data.entities.QuestCourier;
 import com.example.harbourquests.enums.OrderStatus;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,20 +18,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
-
-
 @RestController
 @RequestMapping("api/v1")
 public class ApiRouter {
 
     final OrderController orderController;
     final QuestController questController;
+    final CourierController courierController;
 
-    public ApiRouter(OrderController orderController, QuestController questController) {
+    public ApiRouter(OrderController orderController, QuestController questController, CourierController courierController) {
         this.orderController = orderController;
         this.questController = questController;
+        this.courierController = courierController;
     }
     
     // TODO: Add query parameters filters
@@ -73,4 +73,10 @@ public class ApiRouter {
     public Quest getQuestById(@PathVariable Long questId) {
         return questController.getQuestById(questId);
     }
+
+    @PostMapping("courier/{username}/{questId}")
+    public QuestCourier startQuest(@PathVariable String username, @PathVariable Long questId) {
+        return courierController.startQuestCourier(username, questId);
+    }
+    
 }
