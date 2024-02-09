@@ -68,7 +68,7 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Order not found
-  /order/{orderId}:
+  /order/{username}/{orderId}:
     put:
       tags:
         - order
@@ -76,6 +76,12 @@ paths:
       description: Update an order's status
       operationId: updateOrderStatus
       parameters:
+        - name: username
+          in: path
+          description: User who completed the quest
+          required: true
+          schema:
+            type: string
         - name: orderId
           in: path
           description: ID of order to return
@@ -150,6 +156,7 @@ paths:
           description: Order not found
         '422':
           description: Validation exception
+  /order/{orderId}:
     get:
       tags:
         - order
