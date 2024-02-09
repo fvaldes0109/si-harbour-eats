@@ -1,7 +1,9 @@
 package com.example.harbourquests.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.example.harbourquests.data.entities.Quest;
 import com.example.harbourquests.data.repositories.QuestRepository;
@@ -17,17 +19,25 @@ public class QuestController {
     }
 
     public Quest createQuest(Quest entity) {
+
+        if (entity == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quest is required");
+
         return questRepository.save(entity);
     }
 
-    public Quest updateQuest(Long id, Quest entity) {
+    public Quest updateQuest(Long questId, Quest entity) {
 
-        Quest quest = questRepository.findById(id).get();
+        if (questId == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quest ID is required");
+
+        Quest quest = questRepository.findById(questId).get();
         quest.setTimeToCompleteInSeconds(entity.getTimeToCompleteInSeconds());
         return questRepository.save(quest);
     }
 
-    public Quest getQuestById(Long id) {
-        return questRepository.findById(id).get();
+    public Quest getQuestById(Long questId) {
+
+        if (questId == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quest ID is required");
+
+        return questRepository.findById(questId).get();
     }
 }

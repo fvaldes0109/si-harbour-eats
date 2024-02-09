@@ -23,6 +23,8 @@ public class CourierController {
 
     public QuestCourier startQuestCourier(String username, Long questId) {
 
+        if (questId == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quest ID is required");
+
         var user = userRepository.findByUsername(username);
         if (user == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
 

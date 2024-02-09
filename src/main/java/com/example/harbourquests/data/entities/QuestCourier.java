@@ -2,7 +2,6 @@ package com.example.harbourquests.data.entities;
 
 import com.example.harbourquests.enums.QuestCourierStatus;
 
-import jakarta.annotation.Generated;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

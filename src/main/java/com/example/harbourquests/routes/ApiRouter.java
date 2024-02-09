@@ -49,9 +49,9 @@ public class ApiRouter {
     }
 
     // TODO: If there is an active quest and the order was completed, add 1 to the QuestCourier
-    @PutMapping("order/{id}")
-    public Order updateOrderStatus(@PathVariable Long id, @RequestBody Order entity) {
-        return orderController.updateOrderStatus(id, entity.getStatus());
+    @PutMapping("order/{orderId}")
+    public Order updateOrderStatus(@PathVariable Long orderId, @RequestBody Order entity) {
+        return orderController.updateOrderStatus(orderId, entity.getStatus());
     }
 
     @GetMapping("quest")
