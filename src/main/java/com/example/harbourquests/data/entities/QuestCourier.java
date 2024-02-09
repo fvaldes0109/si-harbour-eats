@@ -3,6 +3,7 @@ package com.example.harbourquests.data.entities;
 import java.util.List;
 
 import com.example.harbourquests.enums.QuestCourierStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -25,6 +26,7 @@ public class QuestCourier {
     @ManyToOne
     private Quest quest;
     @ManyToOne
+    @JsonIgnoreProperties("questCouriers")
     private User user;
     private QuestCourierStatus status;
     @OneToMany(mappedBy = "questCourier", cascade = CascadeType.ALL)

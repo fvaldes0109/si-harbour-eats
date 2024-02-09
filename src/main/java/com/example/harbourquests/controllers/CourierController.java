@@ -40,7 +40,7 @@ public class CourierController {
     }
 
     public Iterable<QuestCourier> getHistory(String username) {
-        return questCourierRepository.findByUserAndNotStatus(username, QuestCourierStatus.completed);
+        return questCourierRepository.findByUserAndStatus(username, QuestCourierStatus.completed);
     }
 
     public QuestCourier getActiveQuest(String username) {
