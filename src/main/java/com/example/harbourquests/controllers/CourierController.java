@@ -31,7 +31,7 @@ public class CourierController {
         var quest = questRepository.findById(questId);
         if (quest.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Quest not found");
         
-        if (questCourierRepository.numberOfActiveQuest(username) > 0) {
+        if (questCourierRepository.numberOfQuestByStatus(username, QuestCourierStatus.inProgress) > 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already has an active quest");
         }
 
