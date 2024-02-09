@@ -425,10 +425,8 @@ components:
     QuestCourier:
       type: object
       properties:
-        questId:
-          type: integer
-          format: int64
-          example: 13
+        quest:
+          $ref: '#/components/schemas/Quest'
         username:
           type: string
           example: "user1"
@@ -476,6 +474,8 @@ components:
             "inProgress",
             "unassigned"
           ]
+        questCourier:
+          $ref: '#/components/schemas/QuestCourier'
       xml:
         name: order
     User:
