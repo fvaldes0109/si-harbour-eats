@@ -179,6 +179,26 @@ paths:
         '404':
           description: Order not found
   /quest:
+    get:
+      tags:
+        - quest
+      summary: Get a list of quests
+      description: Returns a list of quests
+      operationId: getQuests
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Quest'
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Quest'
     post:
       tags:
         - quest
@@ -280,25 +300,6 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Quest'
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Quest not found
-    delete:
-      tags:
-        - quest
-      summary: Deletes a quest
-      description: Delete a quest
-      operationId: deleteQuest
-      parameters:
-        - name: questId
-          in: path
-          description: Quest id to delete
-          required: true
-          schema:
-            type: integer
-            format: int64
-      responses:
         '400':
           description: Invalid ID supplied
         '404':
