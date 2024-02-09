@@ -52,19 +52,20 @@ public class OrderController {
         if (user == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
 
         Iterable<QuestCourier> questCouriers = questCourierRepository.findByUserAndStatus(username, QuestCourierStatus.inProgress);
+        if (!questCouriers.iterator().hasNext()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Courier doesn't have an active quest");
 
-        if (questCouriers.iterator().hasNext() && status == OrderStatus.completed) {
-
-            QuestCourier questCourier = questCouriers.iterator().next();
-            questCourier.setOrdersDelivered(questCourier.getOrdersDelivered() + 1);
-
-            // TODO: Add quest completion logic when tiers are implemented
-
-            questCourierRepository.save(questCourier);
-        }
-        
         Order order = orderRepository.findById(orderId).get();
+        if (order == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found");
+        if (order.getStatus() == OrderStatus.cancelled || order.getStatus() == OrderStatus.completed)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order is already cancelled or delivered");
+            
         order.setStatus(status);
-        return orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+
+        QuestCourier questCourier = questCouriers.iterator().next();
+
+        questCourier.addOrder(savedOrder);
+        questCourierRepository.save(questCourier);
+        return order;
     }
 }
