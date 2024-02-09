@@ -79,4 +79,8 @@ public class ApiRouter {
         return courierController.startQuestCourier(username, questId);
     }
     
+    @GetMapping("courier/{username}/history")
+    public Iterable<QuestCourier> getCourierHistory(@PathVariable String username) {
+        return courierController.getHistory(username);
+    }
 }

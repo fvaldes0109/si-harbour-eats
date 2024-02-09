@@ -9,6 +9,7 @@ import com.example.harbourquests.data.entities.QuestCourier;
 import com.example.harbourquests.data.repositories.QuestCourierRepository;
 import com.example.harbourquests.data.repositories.QuestRepository;
 import com.example.harbourquests.data.repositories.UserRepository;
+import com.example.harbourquests.enums.QuestCourierStatus;
 
 @RestController
 public class CourierController {
@@ -34,5 +35,10 @@ public class CourierController {
 
         var questCourier = new QuestCourier(user, quest.get());
         return questCourierRepository.save(questCourier);
+    }
+
+    public Iterable<QuestCourier> getHistory(String username) {
+        
+        return questCourierRepository.findByUserAndNotStatus(username, QuestCourierStatus.completed);
     }
 }

@@ -26,6 +26,9 @@ public class QuestCourier {
     private QuestCourierStatus status;
     private Integer ordersDelivered;
 
+    public QuestCourier() {
+    }
+
     public QuestCourier(User user, Quest quest) {
 
         this.quest = quest;
