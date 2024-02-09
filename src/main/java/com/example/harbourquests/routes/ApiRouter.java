@@ -3,7 +3,9 @@ package com.example.harbourquests.routes;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.harbourquests.controllers.OrderController;
+import com.example.harbourquests.controllers.QuestController;
 import com.example.harbourquests.data.entities.Order;
+import com.example.harbourquests.data.entities.Quest;
 import com.example.harbourquests.enums.OrderStatus;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +25,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ApiRouter {
 
     final OrderController orderController;
+    final QuestController questController;
 
-    public ApiRouter(OrderController orderController) {
+    public ApiRouter(OrderController orderController, QuestController questController) {
         this.orderController = orderController;
+        this.questController = questController;
     }
     
     // TODO: Add query parameters filters
@@ -40,7 +44,7 @@ public class ApiRouter {
     }
     
     @PostMapping("order")
-    public Order createOrder(@RequestBody Order entity) {
+    public Order addOrder(@RequestBody Order entity) {
         return orderController.createOrder(entity);
     }
 
@@ -48,5 +52,25 @@ public class ApiRouter {
     @PutMapping("order/{id}")
     public Order updateOrderStatus(@PathVariable Long id, @RequestBody Order entity) {
         return orderController.updateOrderStatus(id, entity.getStatus());
+    }
+
+    @GetMapping("quest")
+    public Iterable<Quest> getQuests() {
+        return questController.getQuests();
+    }
+
+    @PostMapping("quest")
+    public Quest addQuest(@RequestBody Quest entity) {
+        return questController.createQuest(entity);
+    }
+
+    @PutMapping("quest/{questId}")
+    public Quest updateQuest(@PathVariable Long questId, @RequestBody Quest entity) {
+        return questController.updateQuest(questId, entity);
+    }
+
+    @GetMapping("quest/{questId}")
+    public Quest getQuestById(@PathVariable Long questId) {
+        return questController.getQuestById(questId);
     }
 }
