@@ -45,6 +45,9 @@ public class QuestCourier {
     public void addOrder(Order order) {
 
         this.orders.add(order);
+        
+        // TODO: Logic to send rewards and mark quest completion if all rewards are sent
+
         order.setQuestCourier(this);
     }
 }
