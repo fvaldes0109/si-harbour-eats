@@ -27,4 +27,15 @@ public class Order {
     @ManyToOne
     @JsonIgnoreProperties("orders")
     private QuestCourier questCourier;
+
+    public Order() {
+    }
+
+    public Order(String foodPickupAddress, String deliverAddress, String creationDate, String deliveryDate, OrderStatus status) {
+        this.foodPickupAddress = foodPickupAddress;
+        this.deliverAddress = deliverAddress;
+        this.creationDate = creationDate;
+        this.deliveryDate = deliveryDate;
+        this.status = status;
+    }
 }
