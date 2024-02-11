@@ -31,6 +31,7 @@ public class QuestController {
 
         Quest quest = questRepository.findById(questId).get();
         quest.setTimeToCompleteInSeconds(entity.getTimeToCompleteInSeconds());
+        quest.setRewardsByCompletedOrders(entity.getRewardsByCompletedOrders());
         return questRepository.save(quest);
     }
 

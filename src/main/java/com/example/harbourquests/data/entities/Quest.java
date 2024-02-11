@@ -29,4 +29,12 @@ public class Quest {
     @MapKeyColumn(name = "completed_orders")
     @Column(name = "reward")
     private Map<Integer, Integer> rewardsByCompletedOrders;
+
+    public Quest() {
+    }
+
+    public Quest(int timeToCompleteInSeconds, Map<Integer, Integer> rewardsByCompletedOrders) {
+        this.timeToCompleteInSeconds = timeToCompleteInSeconds;
+        this.rewardsByCompletedOrders = rewardsByCompletedOrders;
+    }
 }
