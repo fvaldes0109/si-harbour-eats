@@ -67,7 +67,6 @@ public class UserMethodsTest {
     void userToString() {
         
         User user1 = new User("user1");
-        System.out.println(user1.toString());
         assert(user1.toString().equals("User(id=null, username=user1, questCouriers=null)"));
     }
 
