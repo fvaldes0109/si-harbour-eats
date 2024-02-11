@@ -23,4 +23,12 @@ public class User {
     private String username;
     @OneToMany(mappedBy = "user")
     private List<QuestCourier> questCouriers;
+
+    public User() {
+        
+    }
+
+    public User(String username) {
+        this.username = username;
+    }
 }
