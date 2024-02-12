@@ -7,7 +7,7 @@ info:
     For more information about the product, you can go to:
     - [Product Requirements Document](https://docs.google.com/document/d/1AB9UwRf13sW7MMsvsw2U5ksHV0o7L_FzOdYn9URKG2g/edit?usp=sharing)
     - [Request For Comments Document](https://docs.google.com/document/d/1jdzAkRxnnGrEXd5ZXXd_1BhJMyVb0GiANlKKM6dO8MQ/edit?usp=sharing)
-  version: 0.0.1
+  version: 0.0.4
 tags:
   - name: order
     description: Everything about your Orders
@@ -392,6 +392,69 @@ paths:
           schema:
             type: integer
             format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuestCourier'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/QuestCourier'
+  /courier/{username}:
+    put:
+      tags:
+       - courier
+      summary: Changes the status of the given courier's active quest
+      description: ''
+      operationId: updateActiveQuestStatus
+      parameters:
+        - name: username
+          in: path
+          description: 'The name of the user whose quest status will change'
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update the quest's status
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: "inProgress"
+                  enum: [
+                    "completed",
+                    "cancelled",
+                    "inProgress"
+                  ]
+          application/xml:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: "inProgress"
+                  enum: [
+                    "completed",
+                    "cancelled",
+                    "inProgress"
+                  ]
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: "inProgress"
+                  enum: [
+                    "completed",
+                    "cancelled",
+                    "inProgress"
+                  ]
       responses:
         '200':
           description: successful operation
