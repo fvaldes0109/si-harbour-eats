@@ -18,16 +18,14 @@ public class QuestController {
         return questRepository.findAll();
     }
 
+    @SuppressWarnings("null")
     public Quest createQuest(Quest entity) {
-
-        if (entity == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quest is required");
 
         return questRepository.save(entity);
     }
 
+    @SuppressWarnings("null")
     public Quest updateQuest(Long questId, Quest entity) {
-
-        if (questId == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quest ID is required");
 
         Quest quest = questRepository.findById(questId).get();
         quest.setTimeToCompleteInSeconds(entity.getTimeToCompleteInSeconds());
@@ -35,9 +33,8 @@ public class QuestController {
         return questRepository.save(quest);
     }
 
+    @SuppressWarnings("null")
     public Quest getQuestById(Long questId) {
-
-        if (questId == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Quest ID is required");
 
         return questRepository.findById(questId).get();
     }
