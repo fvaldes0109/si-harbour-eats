@@ -105,4 +105,13 @@ public class RestOrderTest {
 
         assert(orders.length >= 10);
     }
+
+    @Test
+    void getNonExistingOrder() {
+
+        ResponseEntity<Object> response = this.restTemplate.getForEntity("http://localhost:" + port + "/api/v1/order/99999",
+            Object.class);
+
+        assert(response.getStatusCode().is4xxClientError());
+    }
 }
