@@ -53,4 +53,12 @@ public class CourierController {
 
         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No active quest found");
     }
+
+    public QuestCourier updateActiveQuestStatus(String username, QuestCourierStatus status) {
+
+        QuestCourier activeQuest = getActiveQuest(username);
+
+        activeQuest.setStatus(status);
+        return questCourierRepository.save(activeQuest);
+    }
 }

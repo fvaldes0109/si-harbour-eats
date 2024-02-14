@@ -54,23 +54,22 @@ public class OrderController {
         return orderRepository.findAll(spec);
     }
 
+    @SuppressWarnings("null")
     public @ResponseBody Order getOrderById(Long orderId) {
 
-        if (orderId == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order ID is required");
+        var order = orderRepository.findById(orderId);
+        if (order.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found");
 
-        return orderRepository.findById(orderId).get();
+        return order.get();
     }
 
+    @SuppressWarnings("null")
     public Order createOrder(Order entity) {
-
-        if (entity == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order is required");
 
         return orderRepository.save(entity);
     }
 
     public Order updateOrderStatus(String username, Long orderId, OrderStatus status) {
-        
-        if (orderId == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order ID is required");
         
         User user = userRepository.findByUsername(username);
         if (user == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
@@ -78,8 +77,11 @@ public class OrderController {
         Iterable<QuestCourier> questCouriers = questCourierRepository.findByUserAndStatus(username, QuestCourierStatus.inProgress);
         if (!questCouriers.iterator().hasNext()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Courier doesn't have an active quest");
 
-        Order order = orderRepository.findById(orderId).get();
-        if (order == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found");
+        @SuppressWarnings("null")
+        var orderOpt = orderRepository.findById(orderId);
+        if (orderOpt.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found");
+
+        Order order = orderOpt.get();
         if (order.getStatus() == OrderStatus.cancelled || order.getStatus() == OrderStatus.completed)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Order is already cancelled or delivered");
             

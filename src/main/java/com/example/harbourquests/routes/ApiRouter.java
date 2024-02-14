@@ -90,4 +90,9 @@ public class ApiRouter {
     public QuestCourier getActiveQuest(@PathVariable String username) {
         return courierController.getActiveQuest(username);
     }
+
+    @PutMapping("courier/{username}")
+    public QuestCourier updateActiveQuestStatus(@PathVariable String username, @RequestBody QuestCourier entity) {
+        return courierController.updateActiveQuestStatus(username, entity.getStatus());
+    }
 }
