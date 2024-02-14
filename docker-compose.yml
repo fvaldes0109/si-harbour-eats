@@ -1,6 +1,17 @@
 version: '3.7'
 
 services:
+  harbourquests:
+    image: fvaldes0109/harbourquests
+    container_name: harbourquests
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_DATABASE: harboureats
+      MYSQL_USER: harbouruser
+      MYSQL_PASSWORD: password
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3306
   mysql:
     image: mysql:8.0
     container_name: mysql_db
