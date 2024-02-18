@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.example.harbourquests.data.entities.Order;
 import com.example.harbourquests.data.entities.Quest;
@@ -14,6 +15,7 @@ import com.example.harbourquests.enums.OrderStatus;
 import com.example.harbourquests.enums.QuestCourierStatus;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class QuestCourierMethodsTest {
     
     @Test

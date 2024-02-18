@@ -2,11 +2,13 @@ package com.example.harbourquests.unit;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.example.harbourquests.data.entities.Order;
 import com.example.harbourquests.enums.OrderStatus;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class OrderMethodsTest {
     
     @Test

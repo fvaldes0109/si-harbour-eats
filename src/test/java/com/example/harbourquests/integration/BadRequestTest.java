@@ -15,6 +15,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.example.harbourquests.data.entities.Order;
 import com.example.harbourquests.data.entities.Quest;
@@ -23,6 +24,7 @@ import com.example.harbourquests.data.repositories.UserRepository;
 import com.example.harbourquests.enums.OrderStatus;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test")
 @TestInstance(Lifecycle.PER_CLASS)
 public class BadRequestTest {
     
