@@ -16,8 +16,8 @@ public class InMemorySecurityConfiguration {
         var userDetailsService =
                 new InMemoryUserDetailsManager();
 
-        var user = User.withUsername("john")
-                .password("12345")
+        var user = User.withUsername("teacher")
+                .password("goodenoughpassword!")
                 .roles("COURIER", "ADMIN")
                 .build();
 
