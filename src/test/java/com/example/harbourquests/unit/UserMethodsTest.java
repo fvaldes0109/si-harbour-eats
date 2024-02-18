@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.example.harbourquests.data.entities.QuestCourier;
 import com.example.harbourquests.data.entities.User;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class UserMethodsTest {
     
     @Test
