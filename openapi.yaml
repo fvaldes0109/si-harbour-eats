@@ -321,7 +321,7 @@ paths:
       parameters:
         - name: username
           in: path
-          description: 'The name that needs to be fetched. Use user1 for testing. '
+          description: 'The name that needs to be fetched. Use teacher for testing. '
           required: true
           schema:
             type: string
@@ -353,7 +353,7 @@ paths:
       parameters:
         - name: username
           in: path
-          description: 'The name that needs to be fetched. Use user1 for testing. '
+          description: 'The name that needs to be fetched. Use teacher for testing. '
           required: true
           schema:
             type: string
@@ -429,7 +429,7 @@ components:
           $ref: '#/components/schemas/Quest'
         username:
           type: string
-          example: "user1"
+          example: "teacher"
         status:
           type: string
           example: "inProgress"
